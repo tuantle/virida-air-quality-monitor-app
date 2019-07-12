@@ -1,0 +1,8 @@
+code-push deployment list Virida-Android --displayKeys
+code-push deployment list Virida-iOS --displayKeys
+
+code-push deployment history Virida-iOS Staging
+code-push deployment history Virida-iOS Production
+
+code-push release-react Virida-iOS ios -k private/code-push-private.pem --mandatory --description "Updating ios version to code push v0.1.1.1."
+code-push promote Virida-iOS Staging Production

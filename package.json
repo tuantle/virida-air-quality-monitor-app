@@ -1,0 +1,72 @@
+{
+    "name": "virida",
+    "version": "0.1.1",
+    "description": "Virida Air Quality Monitor (AQS) (iOS & Android) app (built with React Native Hyperflow & Hypertoxin).",
+    "authors": [
+        "Tuan Le <tuan.t.lei@gmail.com> (https://github.com/tuantle)"
+    ],
+    "license": "Virida, Inc",
+    "private": true,
+    "engines": {
+        "node": ">=9.x",
+        "npm": ">=5.x"
+    },
+    "dependencies": {
+        "@react-native-community/async-storage": "^1.5.0",
+        "@react-native-community/netinfo": "^3.2.1",
+        "color": "^3.1.2",
+        "hyperflow": "^0.2.1",
+        "hypertoxin": "^0.2.1",
+        "moment": "^2.24.0",
+        "prop-types": "^15.7.2",
+        "react": "^16.8.6",
+        "react-native": "^0.59.10",
+        "react-native-app-intro-slider": "^2.0.1",
+        "react-native-background-geolocation": "^3.0.6",
+        "react-native-code-push": "^5.6.0",
+        "react-native-collapsible": "^1.4.0",
+        "react-native-gesture-handler": "^1.3.0",
+        "react-native-google-places": "^3.0.5",
+        "react-native-maps": "^0.24.2",
+        "react-native-push-notification": "^3.1.3",
+        "react-native-rate": "^1.1.6",
+        "react-native-svg": "^9.5.1",
+        "react-native-svg-charts": "^5.2.0",
+        "react-native-webview": "^5.12.1",
+        "react-navigation": "^3.11.0",
+        "supercluster": "^6.0.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.4",
+        "@babel/runtime": "^7.4.4",
+        "babel-eslint": "^10.0.2",
+        "babel-jest": "^24.8.0",
+        "eslint": "^6.0.1",
+        "eslint-plugin-react": "^7.14.2",
+        "eslint-plugin-react-native": "^3.7.0",
+        "jest": "^24.8.0",
+        "metro-react-native-babel-preset": "^0.54.1",
+        "react-test-renderer": "^16.8.6"
+    },
+    "jest": {
+        "preset": "react-native"
+    },
+    "scripts": {
+        "start-unit-tests": "NODE_ENV=development jest ./__tests__/test-suites",
+        "start-dev-sim": "NODE_ENV=development react-devtools & node node_modules/react-native/local-cli/cli.js start & react-native run-ios --configuration Debug simulator='iPhone 8'",
+        "start-dev": "NODE_ENV=development react-devtools & node node_modules/react-native/local-cli/cli.js start --reset-cache",
+        "start-dev-ios-device": "NODE_ENV=development react-devtools & node node_modules/react-native/local-cli/cli.js start & react-native run-ios --configuration Debug --device 'Belthasa'",
+        "start-staging-ios-device": "NODE_ENV=development node node_modules/react-native/local-cli/cli.js start & react-native run-ios --configuration Staging --device 'Belthasa'",
+        "start-production-ios-device": "NODE_ENV=development node node_modules/react-native/local-cli/cli.js start & react-native run-ios --configuration Release --device 'Belthasa'",
+        "build-ios-production": "NODE_ENV=production react-native bundle --dev false --platform ios --entry-file index.js --bundle-output ./ios/build/main.jsbundle --assets-dest ./ios/build",
+        "build-android-production": "NODE_ENV=production cd android && ./gradlew assembleRelease",
+        "enable-google-maps": "./node_modules/react-native-maps/enable-google-maps /Users/tuan/Projects/sdks/GoogleMaps-3.1.0/**"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://tuantle@bitbucket.org/tuantle/virida/virida.git"
+    },
+    "modulePathIgnorePatterns": [
+        "/node_modules/"
+    ]
+}
