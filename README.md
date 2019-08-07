@@ -3,7 +3,7 @@
     <a style="font-weight: bold; font-size: 250%; margin-left: 10px" href = "https://github.com/tuantle/virida-air-quality-monitor-app">Virida</a>
 </p>
 
-#### An air quality monitor app built with [React Native](https://facebook.github.io/react-native/), [Hypertoxin](https://github.com/tuantle/hypertoxin/) & [Hyperflow](https://github.com/tuantle/hyperflow). Source code is open and available to be used for references.
+#### An air quality monitor app built with [React Native](https://facebook.github.io/react-native/), [Hypertoxin (themable components lib)](https://github.com/tuantle/hypertoxin/) & [Hyperflow (state flow management)](https://github.com/tuantle/hyperflow). Source code is open and available to be used for references.
 
 * * *
 
