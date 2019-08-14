@@ -18,7 +18,7 @@
 
 ## AppStore
 
-[Checkout Virida on the app store!](https://apps.apple.com/us/app/virida/id1315223443?ls=1)
+[Checkout Virida on Apple's App Store!](https://apps.apple.com/us/app/virida/id1315223443?ls=1)
 
 ## About
 
