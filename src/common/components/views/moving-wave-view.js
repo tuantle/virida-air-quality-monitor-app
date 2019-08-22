@@ -111,9 +111,7 @@ export default class MovingWaveView extends React.Component {
                     x: segment.x,
                     y: amplitude * Math.sin(t + segment.x + phase) + verticalOffset
                 };
-            }).reduce((sineCurve, segment) => {
-                return `${sineCurve} L ${segment.x} ${segment.y}`;
-            }, `M ${0} ${amplitude * Math.sin(t + phase) + verticalOffset}`);
+            }).reduce((sineCurve, segment) => `${sineCurve} L ${segment.x} ${segment.y}`, `M ${0} ${amplitude * Math.sin(phase) + verticalOffset}`);
         };
 
         return waves.map((wave, index) => {

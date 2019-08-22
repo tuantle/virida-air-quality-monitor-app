@@ -36,12 +36,12 @@ const DEVICE_HEIGHT = Dimensions.get(`window`).height;
 
 export default {
     VERSION: `0.1.1`,
-    CODE_PUSH_BUILD: `1`,
-    FB_APP_ID: ``,
-    APPLE_APP_ID: ``,
+    CODE_PUSH_BUILD: `4`,
+    FB_APP_ID: 357208711456901,
+    APPLE_APP_ID: `1315223443`,
     API_KEY: {
-        AIR_NOW: ``,
-        AQICN: ``
+        AIR_NOW: `9C7DF405-67FB-466D-BB2A-4147639E78E4`,
+        AQICN: `37663d8604ea4e4b5e290db9f593f7d16c9698d7`
     },
     AQ_ACTIONABLE_TIPS: [{
         pollutantStatus: `Air pollution level is very low or none!`,
@@ -145,6 +145,7 @@ export default {
         MIN_ZOOM_LEVEL: 11,
         MAX_ZOOM_LEVEL: 14,
         READY_DELAY_MS: 1000,
+        MARKER_TRACKING_DELAY_MS: 500,
         MARKER_CLUSTERING: {
             ENABLED: false,
             BBOX_DELTA_PADDING: 0.125,

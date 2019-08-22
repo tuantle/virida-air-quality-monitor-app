@@ -114,7 +114,7 @@ if (CONSTANT.MAP.MARKER_CLUSTERING.ENABLED) {
 
 export default class AQRSiteMapView extends Component {
     static propTypes = {
-        locked: PropTypes.bool,
+        tracking: PropTypes.bool,
         homeRegion: PropTypes.shape({
             latitude: PropTypes.number,
             longitude: PropTypes.number,
@@ -128,7 +128,7 @@ export default class AQRSiteMapView extends Component {
         onRegionUpdated: PropTypes.func
     }
     static defaultProps = {
-        locked: false,
+        tracking: false,
         homeRegion: {
             latitude: 0,
             longitude: 0,
@@ -172,14 +172,12 @@ export default class AQRSiteMapView extends Component {
             }));
             this.state = {
                 ready: false,
-                // tracking: false,
                 aqrClusteredSites: []
             };
         } else {
             this.aqrSiteClusterIndex = null;
             this.state = {
                 ready: false
-                // tracking: false
             };
         }
     }
@@ -231,56 +229,17 @@ export default class AQRSiteMapView extends Component {
             }, CONSTANT.MAP.READY_DELAY_MS);
         }
     }
-    // onRegionChange = () => {
-    //     const component = this;
-    //     const {
-    //         locked
-    //     } = component.props;
-    //     const {
-    //         ready,
-    //         tracking
-    //     } = component.state;
-    //
-    //     if (ready && !locked && !tracking) {
-    //         component.setState(() => {
-    //             return {
-    //                 tracking: true
-    //             };
-    //         });
-    //     }
-    // }
     onRegionChangeComplete = (newRegion) => {
         const component = this;
         const {
-            locked,
+            tracking,
             onRegionUpdated
         } = component.props;
         const {
             ready
-            // tracking
         } = component.state;
 
-        // if (ready && !locked && tracking) {
-        //     if (CONSTANT.MAP.MARKER_CLUSTERING.ENABLED && component.aqrSiteClusterIndex !== null) {
-        //         component.setState(() => {
-        //             return {
-        //                 tracking: false,
-        //                 aqrClusteredSites: component.getAQRClusteredSiteMapMarkers(newRegion)
-        //             };
-        //         }, () => {
-        //             onRegionUpdated(newRegion);
-        //         });
-        //     } else {
-        //         component.setState(() => {
-        //             return {
-        //                 tracking: false
-        //             };
-        //         }, () => {
-        //             onRegionUpdated(newRegion);
-        //         });
-        //     }
-        // }
-        if (ready && !locked) {
+        if (ready && !tracking) {
             if (CONSTANT.MAP.MARKER_CLUSTERING.ENABLED && component.aqrSiteClusterIndex !== null) {
                 component.setState(() => {
                     return {
@@ -382,11 +341,11 @@ export default class AQRSiteMapView extends Component {
     renderAQRSiteMapMarkers () {
         const component = this;
         const {
+            tracking,
             aqrSites
         } = component.props;
         const {
             ready
-            // tracking
         } = component.state;
 
         if (ready) {
@@ -397,7 +356,7 @@ export default class AQRSiteMapView extends Component {
 
                 return (
                     <AQRSiteMapMarkersView
-                        // tracking = { tracking }
+                        tracking = { tracking }
                         aqrSites = { aqrClusteredSites }
                         onPress = { component.onAQRSiteMapMarkerPress }
                     />
@@ -405,7 +364,7 @@ export default class AQRSiteMapView extends Component {
             }
             return (
                 <AQRSiteMapMarkersView
-                    // tracking = { tracking }
+                    tracking = { tracking }
                     aqrSites = { aqrSites }
                     onPress = { component.onAQRSiteMapMarkerPress }
                 />
@@ -416,7 +375,7 @@ export default class AQRSiteMapView extends Component {
     render () {
         const component = this;
         const {
-            locked,
+            tracking,
             homeRegion,
             onPress
         } = component.props;
@@ -452,8 +411,8 @@ export default class AQRSiteMapView extends Component {
                 toolbarEnabled = { false }
                 pitchEnabled = { false }
                 rotateEnabled = { false }
-                scrollEnabled = { !ready || !locked }
-                zoomEnabled = { !ready || !locked }
+                scrollEnabled = { !ready || !tracking }
+                zoomEnabled = { !ready || !tracking }
                 minZoomLevel = { CONSTANT.MAP.MIN_ZOOM_LEVEL }
                 maxZoomLevel = { CONSTANT.MAP.MAX_ZOOM_LEVEL }
                 provider = { MapView.PROVIDER_GOOGLE }
@@ -461,7 +420,6 @@ export default class AQRSiteMapView extends Component {
                 initialRegion = { homeRegion }
                 onPress = { onPress }
                 onMapReady = { component.onMapReady }
-                // onRegionChange = { component.onRegionChange }
                 onRegionChangeComplete = { component.onRegionChangeComplete }
             >
                 {

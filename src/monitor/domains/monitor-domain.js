@@ -336,13 +336,13 @@ const MonitorDomain = Hf.Domain.augment({
                     }
                 };
             });
-            domain.outgoing(EVENT.BROADCAST.MONITOR_ALERT).emit(() => {
-                return {
-                    visible: true,
-                    title: `Regional Air Quality Monitor Alert`,
-                    message: `Unable to Retrieve Regional Air Quality Forecast Data.`
-                };
-            });
+            // domain.outgoing(EVENT.BROADCAST.MONITOR_ALERT).emit(() => {
+            //     return {
+            //         visible: true,
+            //         title: `Regional Air Quality Monitor Alert`,
+            //         message: `Unable to Retrieve Regional Air Quality Forecast Data.`
+            //     };
+            // });
             Hf.log(`warn1`, `Unable to received regional air quality forecast data from AirNow.`);
         });
 

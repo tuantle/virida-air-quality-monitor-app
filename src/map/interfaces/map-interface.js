@@ -430,6 +430,7 @@ const MapInterface = Hf.Interface.augment({
     renderCitySeachAndGoHomeRegion () {
         const component = this;
         const {
+            citySuggestionVisible,
             status
         } = component.state;
 
@@ -488,6 +489,7 @@ const MapInterface = Hf.Interface.augment({
                                     ]
                                 });
                             }
+                            component.outgoing(EVENT.ON.TOGGLE_CITY_SUGGESTION_VISIBILITY).emit();
                         }}
                         onShowSuggestion = {() => {
                             const [ goToHomeRegionButtonRef ] = component.lookupComponentRefs(`go-to-home-region-button`);
@@ -511,17 +513,21 @@ const MapInterface = Hf.Interface.augment({
                                     ]
                                 });
                             }
+                            component.outgoing(EVENT.ON.TOGGLE_CITY_SUGGESTION_VISIBILITY).emit();
                         }}
                         renderSuggestionItem = { component.renderCitySuggestionItem }
                     >
                         <FlatButton
                             room = 'content-left'
-                            action = 'search'
+                            action = { citySuggestionVisible ? `hide-suggestion` : `search` }
                             overlay = 'transparent'
                         >
                             <IconImage
+                                ref = {(componentRef) => {
+                                    component.searchFieldLeftIconRef = componentRef;
+                                }}
                                 room = 'content-middle'
-                                source = 'search'
+                                source = { citySuggestionVisible ? `back` : `search` }
                             />
                         </FlatButton>
                         <FlatButton
@@ -572,7 +578,7 @@ const MapInterface = Hf.Interface.augment({
                 <AQRSiteMapView
                     ref = { component.assignComponentRef(`aqr-site-map-view`) }
                     room = 'content-top'
-                    locked = { aqr.info.status.loading }
+                    tracking = { aqr.info.status.loading }
                     aqrSites = { aqr.sites }
                     selectedAQRSiteCode = { aqr.selectedSiteCode }
                     homeRegion = {{
@@ -589,72 +595,6 @@ const MapInterface = Hf.Interface.augment({
         }
         return null;
     },
-    renderAQRSitesRefresh () {
-        const component = this;
-        const {
-            status,
-            aqr
-        } = component.state;
-
-        if (!aqr.info.status.loading && (!aqr.info.status.availability.siteData || !status.online || !status.geolocationOnline)) {
-            return (
-                <RowLayout
-                    room = 'content-middle'
-                    roomAlignment = 'center'
-                    contentTopRoomAlignment = 'center'
-                    contentMiddleRoomAlignment = 'center'
-                    contentBottomRoomAlignment = 'stretch'
-                    overlay = 'opaque'
-                    corner = 'round'
-                    dropShadowed = { true }
-                    padding = { 10 }
-                    margin = {{
-                        horizontal: 5
-                    }}
-                >
-                    <HeadlineText room = 'content-top' size = 'small' > Regional Air Quality </HeadlineText>
-                    <HeadlineText room = 'content-middle' size = 'small' > Monitor Site Is Unavailable </HeadlineText>
-                    <FlatButton
-                        room = 'content-bottom'
-                        label = 'REFRESH'
-                        margin = {{
-                            top: 20
-                        }}
-                        onPress = { component.onRefreshAQRSiteData }
-                    />
-                </RowLayout>
-            );
-        }
-        return null;
-    },
-    renderLoadingIndicator () {
-        const component = this;
-        const {
-            aqr
-        } = component.state;
-
-        if (aqr.info.status.loading) {
-            return (
-                <RowLayout
-                    room = 'content-middle'
-                    roomAlignment = 'center'
-                    contentMiddleRoomAlignment = 'center'
-                    contentBottomRoomAlignment = 'center'
-                    overlay = 'opaque'
-                    corner = 'round'
-                    dropShadowed = { true }
-                    padding = { 10 }
-                    margin = {{
-                        horizontal: 5
-                    }}
-                >
-                    <ActivityIndicator room = 'content-middle' size = 'large' />
-                    <HeadlineText room = 'content-bottom' size = 'small' > Please Wait... </HeadlineText>
-                </RowLayout>
-            );
-        }
-        return null;
-    },
     renderAQRSiteCalloutPanel () {
         const component = this;
         const {
@@ -663,7 +603,7 @@ const MapInterface = Hf.Interface.augment({
         } = component.state;
 
         if (!aqr.info.status.loading && status.online && status.geolocationOnline && aqr.info.status.availability.siteData) {
-            const [ selectedAQRSite ] = aqr.sites.filter((aqrSite) => aqrSite.info.code === aqr.selectedSiteCode);
+            const selectedAQRSite = aqr.sites.find((aqrSite) => aqrSite.info.code === aqr.selectedSiteCode);
             const lastUpdatedDurration = Hf.isObject(selectedAQRSite) ? moment().diff(moment(selectedAQRSite.info.timestamp), `minutes`) : 0;
             let lastUpdatedMessage = ``;
 
@@ -778,6 +718,72 @@ const MapInterface = Hf.Interface.augment({
                         </ColumnLayout>,
                         <CaptionText key = 'caption-text' room = 'content-bottom' size = 'small' >{ lastUpdatedMessage }</CaptionText>
                     ]) : null }
+                </RowLayout>
+            );
+        }
+        return null;
+    },
+    renderAQRSitesRefresh () {
+        const component = this;
+        const {
+            status,
+            aqr
+        } = component.state;
+
+        if (!aqr.info.status.loading && (!aqr.info.status.availability.siteData || !status.online || !status.geolocationOnline)) {
+            return (
+                <RowLayout
+                    room = 'content-middle'
+                    roomAlignment = 'center'
+                    contentTopRoomAlignment = 'center'
+                    contentMiddleRoomAlignment = 'center'
+                    contentBottomRoomAlignment = 'stretch'
+                    overlay = 'opaque'
+                    corner = 'round'
+                    dropShadowed = { true }
+                    padding = { 10 }
+                    margin = {{
+                        horizontal: 5
+                    }}
+                >
+                    <HeadlineText room = 'content-top' size = 'small' > Regional Air Quality </HeadlineText>
+                    <HeadlineText room = 'content-middle' size = 'small' > Monitor Site Is Unavailable </HeadlineText>
+                    <FlatButton
+                        room = 'content-bottom'
+                        label = 'REFRESH'
+                        margin = {{
+                            top: 20
+                        }}
+                        onPress = { component.onRefreshAQRSiteData }
+                    />
+                </RowLayout>
+            );
+        }
+        return null;
+    },
+    renderLoadingIndicator () {
+        const component = this;
+        const {
+            aqr
+        } = component.state;
+
+        if (aqr.info.status.loading) {
+            return (
+                <RowLayout
+                    room = 'content-middle'
+                    roomAlignment = 'center'
+                    contentMiddleRoomAlignment = 'center'
+                    contentBottomRoomAlignment = 'center'
+                    overlay = 'opaque'
+                    corner = 'round'
+                    dropShadowed = { true }
+                    padding = { 10 }
+                    margin = {{
+                        horizontal: 5
+                    }}
+                >
+                    <ActivityIndicator room = 'content-middle' size = 'large' />
+                    <HeadlineText room = 'content-bottom' size = 'small' > Please Wait... </HeadlineText>
                 </RowLayout>
             );
         }

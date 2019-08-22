@@ -125,7 +125,7 @@ const appIntroSlides = [
     }, {
         key: `6`,
         headline1: `Welcome`,
-        headline2: `And Thankyou For Using Our App`,
+        headline2: `And Thank You For Using Our App`,
         info1: ``,
         info2: `Youth Environmental Awareness (Y.E.A).`,
         info3: ``,

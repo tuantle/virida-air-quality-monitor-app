@@ -29,6 +29,7 @@ import { Hf } from 'hyperflow';
 
 const mapEventMap = {
     onEvents: [
+        `toggle-city-suggestion-visibility`,
         `changing-to-new-region`,
         `refresh-aqr-site-data`,
         `select-aqr-site`,
@@ -51,7 +52,8 @@ const mapEventMap = {
         `mutate-aqr-sites`,
         `mutate-selected-aqr-site`,
         `mutate-aq-actionable-tip`,
-        `mutate-aq-whatis`
+        `mutate-aq-whatis`,
+        `mutate-city-suggestion-visibility`
     ],
     broadcastEvents: [
         `run-mode`,

@@ -32,6 +32,7 @@ import EVENT from '../events/map-event';
 
 const MapStore = Hf.Store.augment({
     state: {
+        citySuggestionVisible: false,
         status: {
             active: false,
             idle: false,
@@ -96,6 +97,7 @@ const MapStore = Hf.Store.augment({
 
         store.incoming(EVENT.DO.MAP_RESET).handle(() => {
             store.reconfig({
+                citySuggestionVisible: false,
                 status: {
                     active: false,
                     idle: false,
@@ -204,6 +206,12 @@ const MapStore = Hf.Store.augment({
                 }
             }, {
                 suppressMutationEvent: !store.status.active || store.status.idle
+            });
+        });
+
+        store.incoming(EVENT.DO.MUTATE_CITY_SUGGESTION_VISIBILITY).handle(() => {
+            store.reduce({
+                citySuggestionVisible: !store.citySuggestionVisible
             });
         });
 

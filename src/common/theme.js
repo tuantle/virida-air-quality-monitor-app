@@ -63,8 +63,8 @@ const Palette = {
     amber: `#fac72f`,
 
     white: `#fcfcfc`,
-    silver: `#ececec`,
     beige: `#edecea`,
+    silver: `#ececec`,
 
     grey: `#8299a3`,
     deepGrey: `#576970`,

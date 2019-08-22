@@ -56,7 +56,7 @@ const aqAlertIndexMarkers = [
 
 const AQRSiteMapMarkersView = (props) => {
     const {
-        // tracking,
+        tracking,
         aqrSites,
         onPress
     } = props;
@@ -67,7 +67,7 @@ const AQRSiteMapMarkersView = (props) => {
                 key = { `${index}` }
                 identifier = { aqrSite.info.code }
                 flat = { true }
-                tracksViewChanges = { false }
+                tracksViewChanges = { tracking }
                 stopPropagation = { true }
                 coordinate = {{
                     latitude: aqrSite.info.latitude,
@@ -98,13 +98,13 @@ const AQRSiteMapMarkersView = (props) => {
 };
 
 AQRSiteMapMarkersView.propTypes = {
-    // tracking: PropTypes.bool,
+    tracking: PropTypes.bool,
     aqrSites: PropTypes.array,
     onPress: PropTypes.func
 };
 
 AQRSiteMapMarkersView.defaultProps = {
-    // tracking: false,
+    tracking: false,
     aqrSites: [],
     onPress: () => null
 };

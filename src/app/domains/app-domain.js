@@ -141,14 +141,12 @@ const AppDomain = Hf.Domain.augment({
             stopOnTerminate: true,
             startOnBoot: false,
             preventSuspend: false,
-            useSignificantChangesOnly: true,
-            disableMotionActivityUpdates: false,
             debug: false, // Hf.DEVELOPMENT,
             maxRecordsToPersist: 1,
             distanceFilter: 10,
             stopTimeout: 1,
             // heartbeatInterval: CONSTANT.GENERAL.BACKGROUND_HEARTBEAT_INTERVAL_M * 60,
-            desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_VERY_LOW,
+            desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
             // notificationPriority: BackgroundGeolocation.NOTIFICATION_PRIORITY_MIN,
             logLevel: BackgroundGeolocation.LOG_LEVEL_OFF // Hf.DEVELOPMENT ? BackgroundGeolocation.LOG_LEVEL_VERBOSE : BackgroundGeolocation.LOG_LEVEL_OFF
         }).then(({

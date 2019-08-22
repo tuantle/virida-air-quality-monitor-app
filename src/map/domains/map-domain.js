@@ -190,7 +190,7 @@ const MapDomain = Hf.Domain.augment({
         }) => {
             if (Hf.isNonEmptyArray(aqrSites)) {
                 domain.outgoing(EVENT.DO.MUTATE_AQR_SITES).emit(() => aqrSites);
-                domain.outgoing(EVENT.DO.MUTATE_AQR_INFO).emit(() => () => {
+                domain.outgoing(EVENT.DO.MUTATE_AQR_INFO).delay(CONSTANT.MAP.MARKER_TRACKING_DELAY_MS).emit(() => () => {
                     return {
                         aqr: {
                             info: {
@@ -207,7 +207,7 @@ const MapDomain = Hf.Domain.augment({
                 });
                 Hf.log(`info1`, `Received ${aqrSites.length} regional air quality site data from AQICN and/or AirNow .`);
             } else {
-                domain.outgoing(EVENT.DO.MUTATE_AQR_INFO).emit(() => () => {
+                domain.outgoing(EVENT.DO.MUTATE_AQR_INFO).delay(CONSTANT.MAP.MARKER_TRACKING_DELAY_MS).emit(() => () => {
                     return {
                         aqr: {
                             info: {
@@ -271,6 +271,8 @@ const MapDomain = Hf.Domain.augment({
             });
             Hf.log(`warn1`, `Unable to receive regional air quality site data from AirNow.`);
         });
+
+        domain.incoming(EVENT.ON.TOGGLE_CITY_SUGGESTION_VISIBILITY).forward(EVENT.DO.MUTATE_CITY_SUGGESTION_VISIBILITY);
 
         domain.incoming(EVENT.ON.SHOW_AQ_ACTIONABLE_TIP_MODAL).forward(EVENT.DO.MUTATE_AQ_ACTIONABLE_TIP);
 

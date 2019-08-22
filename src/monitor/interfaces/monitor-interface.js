@@ -526,7 +526,7 @@ const MonitorInterface = Hf.Interface.augment({
                                     room = 'content-left'
                                     size = 'small'
                                     color = { Theme.color.palette.white }
-                                >{ `  ${aqSummary.aqAlertMessage} @ ` }</SubtitleText>
+                                >{ `  ${aqSample.aqAlertMessage} @ ` }</SubtitleText>
                                 <SubtitleText
                                     room = 'content-left'
                                     size = 'small'
