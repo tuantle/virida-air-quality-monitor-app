@@ -20,7 +20,7 @@
         "moment": "^2.24.0",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
-        "react-native": "^0.59.10",
+        "react-native": "^0.62.3",
         "react-native-app-intro-slider": "^2.0.1",
         "react-native-background-geolocation": "^3.0.6",
         "react-native-code-push": "^5.6.0",
